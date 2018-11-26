@@ -1,4 +1,6 @@
 <launch>
+        <arg name="REBVObag" default="/home/alanhernandez/Downloads/HuskyDataset/husky-indoor.bag"/>
+
 	<node name="rebvo_node" pkg="rebvo" type="rebvo" output="screen" >
 		<rosparam command="load" file="$(find rebvo)/config/rebvo_Husky.yaml"/>
 
@@ -10,4 +12,5 @@
         <node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=/pirvs/left/image_raw raw out:=/pirvs/left/image_raw" />
         <!-- Visualisation RVIZ -->
         <node pkg="rviz" type="rviz" name="rviz" args="-d $(find rebvo)/resource/rebvo.rviz" output="screen"/>
+        <node pkg="rosbag" type="play" name="playback" args="-s 35.0 $(arg REBVObag)" />
 </launch> 
